@@ -1,20 +1,17 @@
-from aiogram import Bot, Router
+from aiogram import Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
-from app.db.functions import User
+import html
 
 router = Router()
 
 
 @router.message(CommandStart())
-async def cmd_start(message: Message, bot: Bot):
-    user_id = message.from_user.id
-    bot_information = await bot.get_me()
+async def cmd_start(message: Message):
+    first_name = message.from_user.first_name
 
-    if not await User.is_registered(user_id):
-        await User.register(user_id)
     await message.answer(
-        f"Приветствую тебя в <b>{bot_information.full_name}</b>! \n"
-        f"<b>ℹ️ Для получения информации о командах и их использовании напиши</b> /help"
+        f"Приветствую, {html.escape(first_name)}"
+        "\n<b>Напиши что-нибудь и я постараюсь это найти!</b>"
     )

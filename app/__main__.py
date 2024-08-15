@@ -12,10 +12,8 @@ from aiogram_dialog import setup_dialogs
 from aiohttp import web
 from pyrogram import Client
 
-from app import db
 from app.arguments import parse_arguments
 from app.config import Config, parse_config
-from app.db import close_orm, init_orm
 from app.dialogs import get_dialog_router
 from app.handlers import get_handlers_router
 from app.inline.handlers import get_inline_router
@@ -48,9 +46,6 @@ async def on_startup(dispatcher: Dispatcher, bot: Bot, config: Config):
             drop_pending_updates=config.settings.drop_pending_updates,
         )
 
-    tortoise_config = config.database.get_tortoise_config()
-    await init_orm(tortoise_config)
-
     bot_info = await bot.get_me()
 
     logging.info(f"Name - {bot_info.full_name}")
@@ -75,7 +70,6 @@ async def on_shutdown(dispatcher: Dispatcher, bot: Bot, config: Config):
     await bot.delete_webhook(drop_pending_updates=config.settings.drop_pending_updates)
     await dispatcher.fsm.storage.close()
     await bot.session.close()
-    await close_orm()
 
 
 async def main():
@@ -84,12 +78,6 @@ async def main():
 
     arguments = parse_arguments()
     config = parse_config(arguments.config)
-
-    tortoise_config = config.database.get_tortoise_config()
-    try:
-        await db.create_models(tortoise_config)
-    except FileExistsError:
-        await db.migrate_models(tortoise_config)
 
     session = AiohttpSession(
         api=TelegramAPIServer.from_base(
