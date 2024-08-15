@@ -21,4 +21,5 @@ class LimokaAPI:
     async def get_users_count(self) -> int:
         async with aiohttp.ClientSession() as session:
             async with session.get('https://limoka.vsecoder.dev/api/user/count') as response:
-                return response.json()["count"]
+                data = await response.json()
+                return data["count"]

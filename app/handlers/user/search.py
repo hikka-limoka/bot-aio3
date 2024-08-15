@@ -1,4 +1,4 @@
-from aiogram import Router
+from aiogram import Router, F
 from aiogram.types import Message
 
 from app.search import Search
@@ -6,10 +6,8 @@ from app.api import LimokaAPI
 
 router = Router()
 
-@router.message()
+@router.message(F.text.not_in(["/stats", "/start", "/ping"]))
 async def search_module(message: Message):
-
-    if message.text not in ["/stats", "/start"]:
         query = message.text
 
         api = LimokaAPI()
@@ -63,17 +61,21 @@ async def search_module(message: Message):
             dev_username = module_info["developer"]
             name = module_info["name"]
             description = module_info["description"]
-            commands = module_info["commands"]
+            commands_api = module_info["commands"]
+            link = f"https://limoka.vsecoder.dev/api/module/{dev_username}/{name}.py"
 
             commands = []
 
-            command_template = ".{command} - {description}"
+            command_template = "<code>.{command}</code> - <i>{description}</i>"
 
-            for command in commands:
-                command_template.format(
-                    command=command["command"],
-                    description=description["description"]
-                )
+
+            for command in module_info["commands"]:
+                 commands.append(
+                    command_template.format(
+                            command=command['command'],
+                            description=command["description"]
+                        )
+                    )
 
             commands_text = '\n'.join(commands)
 
@@ -84,4 +86,5 @@ async def search_module(message: Message):
                 f"\nℹ️ <i>{description}</i>"
                 "\n"
                 f"\n{commands_text}"
+                f"\n🔗 <b>Link:</b> <code>{link}</code>"
             )
