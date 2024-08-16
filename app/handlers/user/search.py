@@ -4,11 +4,16 @@ from aiogram.types import Message
 from app.search import Search
 from app.api import LimokaAPI
 
+import html
+
 router = Router()
 
 @router.message(F.text.not_in(["/stats", "/start", "/ping"]))
 async def search_module(message: Message):
         query = message.text
+
+        if len(query) < 2:
+            return await message.answer("Very short search query, try it differently")
 
         api = LimokaAPI()
 
@@ -81,7 +86,7 @@ async def search_module(message: Message):
             await message.answer(
                 f"🔎 Best guess for <code>{query}</code>"
                 "\n"
-                f"\n🧩 <b>Module <code>{name}</code> by {dev_username}</b>"
+                f"\n🧩 <b>Module <code>{html.escape(name)}</code> by {dev_username}</b>"
                 f"\nℹ️ <i>{description}</i>"
                 "\n"
                 f"\n{commands_text}"
