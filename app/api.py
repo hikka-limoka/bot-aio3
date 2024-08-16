@@ -29,7 +29,7 @@ class LimokaAPI:
             
     async def get_user(self, userid: str) -> bool:
         async with aiohttp.ClientSession() as session:
-            async with session.get('https://limoka.vsecoder.dev/api/user/{user_id}?tg_id=' + userid) as response:
+            async with session.get('https://limoka.vsecoder.dev/api/user/{user_id}?tg_id=' + str(userid)) as response:
                 data = await response.json()
                 if data.get("error"):
                     return False
@@ -40,5 +40,5 @@ class LimokaAPI:
         headers = {"token": self.token}
 
         async with aiohttp.ClientSession(headers=headers) as session:
-            async with session.post('https://limoka.vsecoder.dev/api/user/?telegram_id=' + userid) as response:
+            async with session.post('https://limoka.vsecoder.dev/api/user/?telegram_id=' + str(userid)) as response:
                 return userid
