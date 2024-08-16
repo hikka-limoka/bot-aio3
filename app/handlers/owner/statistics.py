@@ -6,6 +6,10 @@ from app.filters.is_owner import IsOwner
 
 from app.api import LimokaAPI
 
+import toml
+
+config = toml.load("config.toml")
+
 router = Router()
 
 
@@ -14,10 +18,10 @@ router = Router()
 @router.message(IsOwner(is_owner=True), Command(commands=["stats"]))
 async def stats_handler(message: Message):
 
-    api = LimokaAPI()
+    api = LimokaAPI(config["limoka"]["token"])
 
     count = await api.get_users_count()
 
     await message.answer(
-        f"📊 <b>Количество пользователей бота -</b> <code>{count}</code>"
+        f"📊 <b>Number of bot users -</b> <code>{count}</code>"
     )
