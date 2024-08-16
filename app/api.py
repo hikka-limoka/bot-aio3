@@ -1,7 +1,7 @@
 import aiohttp
 
 class LimokaAPI:
-    def __init__(self, token):
+    def __init__(self, token="token"):
         self.token = token
 
     async def get_all_modules(self) -> list:

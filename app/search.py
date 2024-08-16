@@ -43,7 +43,9 @@ class Search:
                 results = searcher.search(wildcard_query)
 
             if results:
-                best_match = results[0]
-                return int(best_match["title"])
+                ids = []
+                for result in results:
+                    ids.append(int(result["title"]))
+                return ids
             else:
                 return 0

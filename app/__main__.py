@@ -103,7 +103,16 @@ async def main():
 
     registry = setup_dialogs(dp)
 
-    context_kwargs = {"config": config, "registry": registry}
+    context_kwargs = {
+        "config": config,
+        "registry": registry,
+        "allowed_updates": [
+            "message",
+            "inline_query",
+            "callback_query",
+            "pre_checkout_query",
+        ],
+    }
 
     if config.settings.use_pyrogram_client:
         pyrogram_client = Client(

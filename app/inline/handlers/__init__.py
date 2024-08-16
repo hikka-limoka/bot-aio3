@@ -2,10 +2,8 @@ from aiogram import Router
 
 
 def get_inline_router() -> Router:
-    from . import search, user_information
+    from . import search
 
     router = Router()
     router.include_router(search.router)
-    router.include_router(user_information.router)
-
     return router

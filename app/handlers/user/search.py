@@ -50,7 +50,7 @@ async def search_module(message: Message):
         searcher = Search(query)
         result = searcher.search_module(contents)
 
-        module_id = result
+        module_id = result[0]
 
         if module_id == 0:
             await message.answer("❌ <b>Модуль не найден!</b>")
@@ -61,7 +61,6 @@ async def search_module(message: Message):
             dev_username = module_info["developer"]
             name = module_info["name"]
             description = module_info["description"]
-            commands_api = module_info["commands"]
             link = f"https://limoka.vsecoder.dev/api/module/{dev_username}/{name}.py"
 
             commands = []
