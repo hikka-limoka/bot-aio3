@@ -36,3 +36,12 @@ def start_keyboard():
     builder.adjust(1)
 
     return builder.as_markup()
+
+
+def module_keyboard(module_id):
+    buttons = [
+        [InlineKeyboardButton(text="🔽 Download", callback_data=f"install:{module_id}")]
+    ]
+
+    keyboard = InlineKeyboardBuilder(markup=buttons)
+    return keyboard.as_markup()
