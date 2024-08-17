@@ -19,6 +19,7 @@ from app.handlers import get_handlers_router
 from app.inline.handlers import get_inline_router
 from app.middlewares import register_middlewares
 from app.commands import remove_bot_commands, setup_bot_commands
+from app.api import LimokaAPI
 
 
 async def on_startup(dispatcher: Dispatcher, bot: Bot, config: Config):
@@ -103,9 +104,12 @@ async def main():
 
     registry = setup_dialogs(dp)
 
+    api = LimokaAPI(config.limoka.token)
+
     context_kwargs = {
         "config": config,
         "registry": registry,
+        "api": api,
         "allowed_updates": [
             "message",
             "inline_query",

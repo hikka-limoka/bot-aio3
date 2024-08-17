@@ -40,21 +40,21 @@ class LimokaAPI:
         headers = {"token": self.token}
 
         async with aiohttp.ClientSession(headers=headers) as session:
-            async with session.post('https://limoka.vsecoder.dev/api/user/?telegram_id=' + str(userid)) as response:
+            async with session.post('https://limoka.vsecoder.dev/api/user/?telegram_id=' + str(userid)) as _:
                 return userid
             
     async def look_module(self, user_id: str, module_id) -> dict:
         headers = {"token": self.token}
 
         async with aiohttp.ClientSession(headers=headers) as session:
-            async with session.post(f'https://limoka.vsecoder.dev/api/module/look/{module_id}/{user_id}') as response:
+            async with session.post(f'https://limoka.vsecoder.dev/api/module/look/{module_id}/{user_id}') as _:
                 return None # api return null
             
     async def download_module(self, user_id: str, module_id) -> dict:
         headers = {"token": self.token}
 
         async with aiohttp.ClientSession(headers=headers) as session:
-            async with session.post(f'https://limoka.vsecoder.dev/api/module/download/{module_id}/{user_id}') as response:
+            async with session.post(f'https://limoka.vsecoder.dev/api/module/download/{module_id}/{user_id}') as _:
                 return None # api return null
             
     async def check_updates(self, user_id: str, module_id) -> dict:
@@ -67,6 +67,3 @@ class LimokaAPI:
     # approve_update
     # get_unapproved_updates
     # get_diff
-            
-    
-            

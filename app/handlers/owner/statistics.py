@@ -4,22 +4,11 @@ from aiogram.types import Message
 
 from app.filters.is_owner import IsOwner
 
-from app.api import LimokaAPI
-
-import toml
-
-config = toml.load("config.toml")
-
 router = Router()
 
 
-
-
 @router.message(IsOwner(is_owner=True), Command(commands=["stats"]))
-async def stats_handler(message: Message):
-
-    api = LimokaAPI(config["limoka"]["token"])
-
+async def stats_handler(message: Message, api):
     count = await api.get_users_count()
 
     await message.answer(

@@ -1,21 +1,21 @@
-from aiogram import Router, F
+from aiogram import Router
 from aiogram.types import Message
 
 from app.search import Search
-from app.api import LimokaAPI
 
 import html
 
 router = Router()
 
-@router.message(F.text.not_in(["/stats", "/start", "/ping"]))
-async def search_module(message: Message):
+@router.message()
+async def search_module(message: Message, api):
         query = message.text
 
         if len(query) < 2:
             return await message.answer("Very short search query, try it differently")
-
-        api = LimokaAPI()
+        
+        if message.text > 100:
+            return await message.answer("Very long search query, try it differently")
 
         modules = await api.get_all_modules()
 
