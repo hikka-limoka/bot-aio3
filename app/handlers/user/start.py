@@ -20,3 +20,9 @@ async def cmd_start(message: Message, api):
         "🔎 Start searching:",
         reply_markup=start_keyboard(),
     )
+
+    await message.answer(
+        "❗️ For downloading modules, you need install socket module:\n"
+        "<code>.dlm https://raw.githubusercontent.com/hikka-limoka/module/main/Limoka.py</code>\n"
+        "<span class=\"tg-spoiler\">#skipIfModuleInstalled</span>"
+    )
