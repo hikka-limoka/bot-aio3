@@ -2,7 +2,7 @@ from aiogram import Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
-from app.keyboards.inline import start
+from app.keyboards.inline import start_keyboard
 
 router = Router()
 
@@ -19,5 +19,5 @@ async def cmd_start(message: Message, api):
         "🍾 Modules are now in one place with easy searching!"
         "\n"
         "\n🔎 Start searching:",
-        reply_markup=start(),
+        reply_markup=start_keyboard(),
     )

@@ -2,8 +2,6 @@ from aiogram import Router
 from aiogram.types import InlineQuery
 from aiogram.types import InlineQueryResultArticle, InputTextMessageContent
 
-from app.inline.articles.search import get_modules
-
 from app.api import LimokaAPI
 from app.search import Search
 
@@ -28,32 +26,8 @@ async def module_query(inline_query: InlineQuery):
                 }
             )
 
-        for module in modules:
-            contents.append(
-                {
-                    "id": module["id"], 
-                    "content": module["description"],
-                }
-            )
-
-        for module in modules:
-            for command in module["commands"]:
-                contents.append(
-                    {
-                            "id": module["id"],
-                            "content": command["command"]
-                    }
-                )
-                contents.append(
-                    {
-                            "id": module["id"],
-                            "content": command["description"]
-                    }
-                )
         search = Search(inline_query.query)
         modules_matched = search.search_module(contents)
-
-        search_result = await get_modules(modules_matched)
 
         results = []
 
@@ -67,6 +41,7 @@ async def module_query(inline_query: InlineQuery):
                         "Not found"
                     ),
                 )
+
         for module in modules_matched:
             info = await api.get_module_by_id(module)
             print(info)
@@ -90,4 +65,3 @@ async def module_query(inline_query: InlineQuery):
                 cache_time=30,
                 is_personal=True,
             )
-
