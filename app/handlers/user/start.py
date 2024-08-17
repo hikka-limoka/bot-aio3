@@ -16,8 +16,7 @@ async def cmd_start(message: Message, api):
 
     await message.answer_photo(
         "https://raw.githubusercontent.com/hikka-limoka/stuff/main/banners/start.png",
-        "🍾 Modules are now in one place with easy searching!"
-        "\n"
-        "\n🔎 Start searching:",
+        "<b>🍾 Modules are now in one place with easy searching!</b>\n"
+        "🔎 Start searching:",
         reply_markup=start_keyboard(),
     )

@@ -10,4 +10,4 @@ class IsOwner(Filter):
         self.is_owner = is_owner
 
     async def __call__(self, message: types.Message, config: Config) -> bool:
-        return self.is_owner is (message.from_user.id == config.settings.owner_id)
+        return self.is_owner is (message.from_user.id in config.settings.owner_ids)

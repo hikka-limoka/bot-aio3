@@ -57,7 +57,7 @@ class ConfigWebhook:
 
 @dataclass
 class ConfigSettings:
-    owner_id: int
+    owner_ids: list[int]
     throttling_rate: float = 0.5
     use_webhook: bool = False
     use_pyrogram_client: bool = False
