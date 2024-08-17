@@ -14,7 +14,7 @@ async def search_module(message: Message, api):
         if len(query) < 2:
             return await message.answer("Very short search query, try it differently")
         
-        if message.text > 100:
+        if len(message.text) > 100:
             return await message.answer("Very long search query, try it differently")
 
         modules = await api.get_all_modules()
