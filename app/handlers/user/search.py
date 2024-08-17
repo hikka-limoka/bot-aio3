@@ -12,6 +12,24 @@ router = Router()
 async def search_module(message: Message, api):
     query = message.text
 
+    if query.startswith("#"):
+        query = query[1:]
+
+        command, module_id = query.split("\n", 1)[0].split(":", 1)
+
+        if not module_id.isdigit():
+            return
+
+        module_id = int(module_id)
+
+        if command == "install":
+            await api.download_module(message.from_user.id, module_id)
+        
+        if command == "look":
+            await api.look_module(message.from_user.id, module_id)
+
+        return await message.delete()
+
     if len(query) < 2:
         return await message.answer("Very short search query, try it differently")
 
