@@ -2,9 +2,10 @@ from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 
-def get_author_keyboard(owner_id):
+def get_author_keyboard(owner_ids):
     buttons = [
-        [InlineKeyboardButton(text="Автор", url=f"tg://user?id={owner_id}")],
+        #[InlineKeyboardButton(text="Автор", url=f"tg://user?id={owner_id}")],
+        [[InlineKeyboardButton(text="Автор", url=f"tg://user?id={owner_id}") for owner_id in owner_ids]]
     ]
     keyboard = InlineKeyboardBuilder(markup=buttons)
     return keyboard.as_markup()
