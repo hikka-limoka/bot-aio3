@@ -11,6 +11,11 @@ class ConfigBot:
 
 
 @dataclass
+class ConfigLimoka:
+    token: str
+
+
+@dataclass
 class ConfigDatabase:
     models: list[str]
     protocol: str = "sqlite"
@@ -78,6 +83,7 @@ class Config:
     webhook: ConfigWebhook
     settings: ConfigSettings
     api: ConfigApi
+    limoka: ConfigLimoka
 
     @classmethod
     def parse(cls, data: dict) -> "Config":
