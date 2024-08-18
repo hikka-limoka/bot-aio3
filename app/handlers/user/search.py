@@ -24,6 +24,7 @@ async def search_module(message: Message, api):
 
         if command == "confirm":
             await api.download_module(message.from_user.id, module_id)
+            await message.answer("✅ <b>Module installed!</b>")
 
         if command == "look":
             await api.look_module(message.from_user.id, module_id)
