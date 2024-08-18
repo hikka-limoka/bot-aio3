@@ -1,10 +1,12 @@
 from aiogram import Bot
-from aiogram.types import BotCommand, BotCommandScopeChat, BotCommandScopeDefault
+from aiogram.types import BotCommand, BotCommandScopeDefault
 
 from app.config import Config
 
 users_commands = {
-    "start": "(пере)Запустить бота",
+    "start": "(re)start bot",
+    "devs": "Show developers",
+    "stats": "Show bot stats",
 }
 
 owner_commands = {**users_commands, "ping": "Check bot ping", "stats": "Show bot stats"}

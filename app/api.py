@@ -86,3 +86,17 @@ class LimokaAPI:
 
     async def get_diff_link(self, update_id) -> str:
         return f"https://limoka.vsecoder.dev/api/module/get_diff/{update_id}/html"
+
+    async def get_devs(self) -> list:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                "https://limoka.vsecoder.dev/api/developer/all"
+            ) as response:
+                return [await response.json()][0]
+
+    async def get_users(self) -> list:
+        headers = {"token": self.token}
+
+        async with aiohttp.ClientSession(headers=headers) as session:
+            async with session.get("https://limoka.vsecoder.dev/api/user/all") as response:
+                return [await response.json()][0]
