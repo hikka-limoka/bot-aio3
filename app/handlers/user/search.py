@@ -22,9 +22,9 @@ async def search_module(message: Message, api):
 
         module_id = int(module_id)
 
-        if command == "install":
+        if command == "confirm":
             await api.download_module(message.from_user.id, module_id)
-        
+
         if command == "look":
             await api.look_module(message.from_user.id, module_id)
 
@@ -99,7 +99,7 @@ async def search_module(message: Message, api):
             f"\n🧩 <b>Module <code>{html.escape(name)}</code> by {dev_username}</b>"
             f"\nℹ️ <i>{description}</i>"
             f"\n🔽 <b>Downloads:</b> {module_info['downloads']}"
-            f"\n👀 <b>Views:</b> {module_info['looks']}"
+            f"\n👀 <b>Searches:</b> {module_info['looks']}"
             f"\n\n{commands_text}",
             reply_markup=module_keyboard(module_id),
             disable_web_page_preview=True,

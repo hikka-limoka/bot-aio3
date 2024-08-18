@@ -85,7 +85,7 @@ async def module_query(inline_query: InlineQuery):
                             f"\n🧩 <b>Module <code>{html.escape(name)}</code> by {dev_username}</b>"
                             f"\nℹ️ <i>{info['description']}</i>"
                             f"\n🔽 <b>Downloads:</b> {info['downloads']}"
-                            f"\n👀 <b>Views:</b> {info['looks']}"
+                            f"\n👀 <b>Searches:</b> {info['looks']}"
                             f"\n\n{commands}"
                         ),
                     ),
