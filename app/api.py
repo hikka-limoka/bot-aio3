@@ -66,6 +66,23 @@ class LimokaAPI:
             async with session.post('https://limoka.vsecoder.dev/api/module/check_updates/') as response:
                 return response.json()
 
-    # approve_update
-    # get_unapproved_updates
-    # get_diff
+    async def get_unapproved_updates(self) -> dict:
+        headers = {"token": self.token}
+
+        async with aiohttp.ClientSession(headers=headers) as session:
+            async with session.get(
+                "https://limoka.vsecoder.dev/api/module/get_unapproved_updates/"
+            ) as response:
+                return await response.json()
+
+    async def approve_update(self, update_id) -> dict:
+        headers = {"token": self.token}
+
+        async with aiohttp.ClientSession(headers=headers) as session:
+            async with session.get(
+                f"https://limoka.vsecoder.dev/api/module/approve_update/{update_id}"
+            ) as response:
+                return response.json()
+
+    async def get_diff_link(self, update_id) -> str:
+        return f"https://limoka.vsecoder.dev/api/module/get_diff/{update_id}/html"
