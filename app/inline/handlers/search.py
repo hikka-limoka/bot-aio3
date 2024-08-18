@@ -36,9 +36,10 @@ async def module_query(inline_query: InlineQuery):
             )
 
         for module in modules:
-            for command in module["commands"]:
-                contents.append({"id": module["id"], "content": command["command"]})
-                contents.append({"id": module["id"], "content": command["description"]})
+            for func in module["commands"]:
+                for command, description in func.items():
+                    contents.append({"id": module["id"], "content": command})
+                    contents.append({"id": module["id"], "content": description})
 
         search = Search(inline_query.query)
         modules_matched = search.search_module(contents)
@@ -62,12 +63,14 @@ async def module_query(inline_query: InlineQuery):
 
             command_template = "<code>.{command}</code> - <i>{description}</i>"
 
-            for command in info["commands"]:
-                commands.append(
-                    command_template.format(
-                        command=html.escape(command["command"]), description=html.escape(command["description"])
+            for func in info["commands"]:
+                for command, description in func.items():
+                    commands.append(
+                        command_template.format(
+                            command=html.escape(command),
+                            description=html.escape(description),
+                        )
                     )
-                )
 
             commands = "\n".join(commands)
 
@@ -84,7 +87,7 @@ async def module_query(inline_query: InlineQuery):
                             "\n"
                             f"\n🧩 <b>Module <code>{html.escape(name)}</code> by {dev_username}</b>"
                             f"\nℹ️ <i>{html.escape(info['description'])}</i>"
-                            f"\n🔽 <b>Downloads:</b> {info['downloads']}"
+                            f"\n\n🔽 <b>Downloads:</b> {info['downloads']}"
                             f"\n👀 <b>Searches:</b> {info['looks']}"
                             f"\n\n{commands}"
                         ),
