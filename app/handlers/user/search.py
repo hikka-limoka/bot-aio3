@@ -31,9 +31,6 @@ async def search_module(message: Message, api):
 
         return await message.delete()
 
-    if len(query) < 2:
-        return await message.answer("Very short search query, try it differently")
-
     if len(message.text) > 100:
         return await message.answer("Very long search query, try it differently")
 
@@ -63,7 +60,10 @@ async def search_module(message: Message, api):
             contents.append({"id": module["id"], "content": command["description"]})
 
     searcher = Search(query)
-    result = searcher.search_module(contents)
+    try:
+        result = searcher.search_module(contents)
+    except IndexError:
+        return await message.answer("Very short search query, try it differently")
 
     module_id = result[0]
 
