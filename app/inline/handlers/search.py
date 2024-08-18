@@ -65,7 +65,7 @@ async def module_query(inline_query: InlineQuery):
             for command in info["commands"]:
                 commands.append(
                     command_template.format(
-                        command=command["command"], description=command["description"]
+                        command=html.escape(command["command"]), description=html.escape(command["description"])
                     )
                 )
 
@@ -77,13 +77,13 @@ async def module_query(inline_query: InlineQuery):
                 InlineQueryResultArticle(
                     id=f"{random.randint(1,10000000000000000)}",
                     title=f"{info['name']}",
-                    description=f"{info['description']}",
+                    description=f"{html.escape(info['description'])}",
                     input_message_content=InputTextMessageContent(
                         message_text=(
                             f"🔎 Best guess for <code>{html.escape(inline_query.query)}</code>"
                             "\n"
                             f"\n🧩 <b>Module <code>{html.escape(name)}</code> by {dev_username}</b>"
-                            f"\nℹ️ <i>{info['description']}</i>"
+                            f"\nℹ️ <i>{html.escape(info['description'])}</i>"
                             f"\n🔽 <b>Downloads:</b> {info['downloads']}"
                             f"\n👀 <b>Searches:</b> {info['looks']}"
                             f"\n\n{commands}"

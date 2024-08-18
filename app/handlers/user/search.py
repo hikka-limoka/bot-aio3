@@ -65,10 +65,13 @@ async def search_module(message: Message, api):
     except IndexError:
         return await message.answer("Very short search query, try it differently")
 
+    if not result:
+        return await message.answer("❌ <b>Module not found!</b>")
+
     module_id = result[0]
 
     if module_id == 0:
-        await message.answer("❌ <b>Модуль не найден!</b>")
+        await message.answer("❌ <b>Module not found!</b>")
 
     else:
         module_info = await api.get_module_by_id(module_id)
@@ -76,7 +79,6 @@ async def search_module(message: Message, api):
         dev_username = module_info["developer"]
         name = module_info["name"]
         description = module_info["description"]
-        # link = f"https://limoka.vsecoder.dev/api/module/{dev_username}/{name}.py"
 
         commands = []
 
@@ -85,8 +87,8 @@ async def search_module(message: Message, api):
         for command in module_info["commands"]:
             commands.append(
                 command_template.format(
-                    command=command['command'],
-                    description=command["description"]
+                    command=html.escape(command['command']),
+                    description=html.escape(command["description"])
                 )
             )
 
@@ -98,7 +100,7 @@ async def search_module(message: Message, api):
             f"🔎 Best guess for <code>{html.escape(query)}</code>"
             "\n"
             f"\n🧩 <b>Module <code>{html.escape(name)}</code> by {dev_username}</b>"
-            f"\nℹ️ <i>{description}</i>"
+            f"\nℹ️ <i>{html.escape(description)}</i>"
             f"\n🔽 <b>Downloads:</b> {module_info['downloads']}"
             f"\n👀 <b>Searches:</b> {module_info['looks']}"
             f"\n\n{commands_text}",
