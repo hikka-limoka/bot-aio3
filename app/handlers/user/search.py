@@ -103,8 +103,6 @@ async def search_module(message: Message, api):
             "\n"
             f"\n🧩 <b>Module <code>{html.escape(name)}</code> by {dev_username}</b>"
             f"\nℹ️ <i>{html.escape(description)}</i>"
-            f"\n\n🔽 <b>Downloads:</b> {module_info['downloads']}"
-            f"\n👀 <b>Searches:</b> {module_info['looks']}"
             f"\n\n{commands_text}",
             reply_markup=module_keyboard(module_id),
             disable_web_page_preview=True,
