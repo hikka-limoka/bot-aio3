@@ -68,7 +68,7 @@ async def module_query(inline_query: InlineQuery):
                     commands.append(
                         command_template.format(
                             command=html.escape(command),
-                            description=html.escape(description),
+                            description=html.escape(description) if description else "No description",
                         )
                     )
 
