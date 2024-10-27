@@ -20,6 +20,7 @@ async def cmd_start(message: Message, api):
     await message.answer_photo(
         f"https://raw.githubusercontent.com/hikka-limoka/stuff/main/banners/start.png?v={v}",
         "<b>🍾 Modules are now in one place with easy searching!</b>\n"
+        "<i>Works with financial support from hikka.host</i>\n\n"
         "🔎 Start searching:",
         reply_markup=start_keyboard(),
     )
