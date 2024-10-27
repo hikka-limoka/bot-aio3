@@ -79,7 +79,7 @@ async def search_module(message: Message, api):
 
         dev_username = module_info["developer"]
         name = module_info["name"]
-        description = module_info["description"]
+        description = module_info["description"] or "No description"
 
         commands = []
 
