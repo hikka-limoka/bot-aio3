@@ -79,7 +79,6 @@ async def search_module(message: Message, api):
 
         dev_username = module_info["developer"]
         name = module_info["name"]
-        description = module_info["description"] or "No description"
 
         commands = []
 
@@ -100,13 +99,13 @@ async def search_module(message: Message, api):
 
         commands_text = '\n'.join(commands)
 
-        await api.look_module(message.from_user.id, module_id)
+        description = module_info["description"] if description else "No description"
 
         await message.answer(
             f"🔎 Best guess for <code>{html.escape(query)}</code>"
             "\n"
             f"\n🧩 <b>Module <code>{html.escape(name)}</code> by {dev_username}</b>"
-            f"\nℹ️ <i>{html.escape(description) if description else 'No description'}</i>"
+            f"\nℹ️ <i>{html.escape(description)}</i>"
             f"\n\n{commands_text}",
             reply_markup=module_keyboard(module_id),
             disable_web_page_preview=True,
