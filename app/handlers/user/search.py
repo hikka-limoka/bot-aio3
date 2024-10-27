@@ -106,7 +106,7 @@ async def search_module(message: Message, api):
             f"🔎 Best guess for <code>{html.escape(query)}</code>"
             "\n"
             f"\n🧩 <b>Module <code>{html.escape(name)}</code> by {dev_username}</b>"
-            f"\nℹ️ <i>{html.escape(description)}</i>"
+            f"\nℹ️ <i>{html.escape(description) if description else 'No description'}</i>"
             f"\n\n{commands_text}",
             reply_markup=module_keyboard(module_id),
             disable_web_page_preview=True,
